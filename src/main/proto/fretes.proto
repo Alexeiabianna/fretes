@@ -7,7 +7,6 @@ option java_outer_classname = "Fretes";
 package br.com.zup;
 
 service FretesService {
-  rpc send (FretesRequest) returns (FretesReply) {}
 
   rpc calculaFrete(CalculaFreteRequest) returns (CalculaFreteResponse) {}
 }
@@ -19,12 +18,4 @@ message CalculaFreteRequest {
 message CalculaFreteResponse {
   double valor = 1;
   string cep = 2;
-}
-
-message FretesRequest {
-  string name = 1;
-}
-
-message FretesReply {
-  string message = 1;
 }
