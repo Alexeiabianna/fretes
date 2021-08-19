@@ -9,7 +9,7 @@ plugins {
 }
 
 version = "0.1"
-group = "br.com.zup"
+group = "br.com.zup.edu"
 
 val kotlinVersion=project.properties.get("kotlinVersion")
 repositories {
@@ -42,7 +42,7 @@ dependencies {
 
 
 application {
-    mainClass.set("br.com.zup.ApplicationKt")
+    mainClass.set("br.com.zup.edu.ApplicationKt")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("11")

@@ -1,5 +1,8 @@
-package br.com.zup
+package br.com.zup.edu
 
+import br.com.zup.edu.CalculaFreteRequest
+import br.com.zup.edu.CalculaFreteResponse
+import br.com.zup.edu.FretesServiceGrpc
 import io.grpc.stub.StreamObserver
 import org.slf4j.LoggerFactory
 import javax.inject.Singleton

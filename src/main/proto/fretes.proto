@@ -1,10 +1,9 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "br.com.zup";
-option java_outer_classname = "Fretes";
+option java_package = "br.com.zup.edu";
 
-package br.com.zup;
+package br.com.zup.edu;
 
 service FretesService {
 
