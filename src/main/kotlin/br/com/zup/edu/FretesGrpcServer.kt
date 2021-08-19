@@ -3,6 +3,7 @@ package br.com.zup.edu
 import br.com.zup.edu.CalculaFreteRequest
 import br.com.zup.edu.CalculaFreteResponse
 import br.com.zup.edu.FretesServiceGrpc
+import io.grpc.Status
 import io.grpc.stub.StreamObserver
 import org.slf4j.LoggerFactory
 import javax.inject.Singleton
@@ -15,6 +16,9 @@ class FretesGrpcServer: FretesServiceGrpc.FretesServiceImplBase() {
 
     override fun calculaFrete(request: CalculaFreteRequest?, responseObserver: StreamObserver<CalculaFreteResponse>?) {
 
+        isValidCep(request!!.cep, responseObserver)
+        isValidFormatCep(request!!.cep, responseObserver)
+
         logger.info("Calculando frete para request: $request")
 
         val response = CalculaFreteResponse.newBuilder()
@@ -26,6 +30,28 @@ class FretesGrpcServer: FretesServiceGrpc.FretesServiceImplBase() {
 
         responseObserver!!.onNext(response)
         responseObserver.onCompleted()
+    }
+
+    fun isValidCep(cep: String, responseObserver: StreamObserver<CalculaFreteResponse>?): Boolean {
+        if(cep == null || cep.isBlank()) {
+            val error = Status.INVALID_ARGUMENT
+                .withDescription("cep deve ser informado")
+                .asRuntimeException()
+            responseObserver?.onError(error)
+            return false
+        }
+        return true
+    }
+
+    fun isValidFormatCep(cep: String, responseObserver: StreamObserver<CalculaFreteResponse>?): Boolean {
+        if(!cep.matches("[0-9]{5}-[\\d]{3}".toRegex())) {
+            responseObserver?.onError(Status.INVALID_ARGUMENT
+                .withDescription("cep inválido")
+                .augmentDescription("formato esperado 99999-999")
+                .asRuntimeException())
+            return false
+        }
+        return true
     }
 
 }
